@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1">
+	<title>List Users</title>
+	<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+	<script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container text-center">
+	<div>
+		<h1>List of Users</h1>
+	</div>
+	<p>
+		Welcome <b>[[${#request.userPrincipal.principal.fullName}]]</b>
+	</p>
+
+	<div>
+		<table class="table table-striped table-bordered">
+			<thead class="thead-dark">
+			<tr>
+				<th>User ID</th>
+				<th>E-mail</th>
+				<th>Name</th>
+				<th>Surname</th>
+				<th>Phone</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr th:each="User: ${listUsers}">
+				<td th:text="${User.id}">User ID</td>
+				<td th:text="${User.email}">E-mail</td>
+				<td th:text="${User.firstName}">First Name</td>
+				<td th:text="${User.lastName}">Last Name</td>
+				<td th:text="${User.phone}">Phone</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form>
+	</div>
+</div>
+</body>
+</html>

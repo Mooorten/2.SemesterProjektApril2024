@@ -8,7 +8,7 @@
 <body>
 <h2>Create a Cat</h2>
 <form action="/process_create_cat" method="POST" enctype="multipart/form-data">
-    
+
     <!--<Bruger angiver kattens navn>-->
     <label for="name">Name:</label><br>
     <input type="text" id="name" name="name" required><br><br>
@@ -34,6 +34,7 @@
 
     <!--<Opretter katten som object og sender til databasen>-->
     <input type="submit" value="Create Cat">
+    <a href="/loggedin">Back</a>
 </form>
 </body>
 </html>

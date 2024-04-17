@@ -11,6 +11,16 @@ public class Cat {
 
     private String gender;
 
+    private Long catid1;
+
+    public Long getCatid1() {
+        return catid1;
+    }
+
+    public void setCatid1(Long catid1) {
+        this.catid1 = catid1;
+    }
+
     public String getGender() {
         return gender;
     }

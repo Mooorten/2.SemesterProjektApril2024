@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Profile</title>
+</head>
+<body>
+<h2>Member Profile</h2>
+
+<!-- Member Information -->
+<h3>Member Information</h3>
+<form action="/update_member" method="POST">
+    <!-- Display current member information -->
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" value="" required><br><br>
+
+    <label for="surname">Surname:</label><br>
+    <input type="text" id="surname" name="surname" value="" required><br><br>
+
+    <label for="phone">Phone:</label><br>
+    <input type="text" id="phone" name="phone" value="" required><br><br>
+
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" value="" required><br><br>
+
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <!-- Submit button to update member information -->
+    <input type="submit" value="Update Information">
+</form>
+
+
+<!-- Link to add/edit cats -->
+<a href="/editCats">Manage Cats</a>
+<a href="/loggedin">Back</a>
+</body>
+</html>

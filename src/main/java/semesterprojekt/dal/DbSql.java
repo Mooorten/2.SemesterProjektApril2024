@@ -2,6 +2,8 @@ package semesterprojekt.dal;
 
 import semesterprojekt.model.Cat;
 import semesterprojekt.model.Member;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,8 +12,12 @@ import java.util.Scanner;
 public class DbSql {
     public static Connection connection;
     private Statement stmt;
+    private final JdbcTemplate jdbcTemplate;
+
 
     public DbSql() {
+        this.jdbcTemplate = new JdbcTemplate();
+
         connection = null;
         stmt = null;
         try {
@@ -23,6 +29,7 @@ public class DbSql {
             throwables.printStackTrace();
         }
     }
+
 
     public void createMember(int memberid, String name, String surname, String phone, String email, String password) {
         String insertMemberQuery = "INSERT INTO member (memberid, name, surname, phone,email,password) VALUES (?, ?, ?, ?, ?, ?)";
@@ -46,7 +53,7 @@ public class DbSql {
             createcat.setString(2, name);
             createcat.setDouble(3, weight);
             createcat.setString(4, breed);
-            createcat.setString(5,gender);
+            createcat.setString(5, gender);
             createcat.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -152,6 +159,37 @@ public class DbSql {
         }
     }
 
+    public void updateMember(Member member) {
+        try {
+            String updateMemberQuery = "UPDATE member SET name=?, surname=?, phone=?, email=?, password=? WHERE memberid=?";
+            PreparedStatement updateMember = connection.prepareStatement(updateMemberQuery);
+            updateMember.setString(1, member.getName());
+            updateMember.setString(2, member.getSurname());
+            updateMember.setString(3, member.getPhone());
+            updateMember.setString(4, member.getEmail());
+            updateMember.setString(5, member.getPassword());
+            updateMember.setInt(6, member.getMemberid());
+            updateMember.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public void updateCat(Cat cat) {
+        try {
+            String updateCatQuery = "UPDATE cat SET name=?, weight=?, breed=?, gender=? WHERE catid=?";
+            PreparedStatement updateCat = connection.prepareStatement(updateCatQuery);
+            updateCat.setString(1, cat.getName());
+            updateCat.setDouble(2, cat.getWeight());
+            updateCat.setString(3, cat.getBreed());
+            updateCat.setString(4, cat.getGender());
+            updateCat.setInt(5, cat.getCatid());
+            updateCat.executeUpdate();
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+
     public void deleteMember(int memberid) {
         try {
             String sql = "delete from member where memberid=" + String.valueOf(memberid);
@@ -219,5 +257,16 @@ public class DbSql {
             throwables.printStackTrace();
         }
         return catList;
+    }
+
+    public Cat save(Cat cat) {
+        if (cat.getCatid1() == null) {
+            String sql = "INSERT INTO cat (catid, name, weight, breed, gender) VALUES (?, ?, ?, ?, ?)";
+            jdbcTemplate.update(sql, cat.getName(), cat.getWeight(), cat.getBreed(), cat.getGender());
+        } else {
+            String sql = "UPDATE cat SET name=?, weight=?, breed=?, gender=? WHERE catid=?";
+            jdbcTemplate.update(sql, cat.getName(), cat.getWeight(), cat.getBreed(), cat.getCatid1());
+        }
+        return cat;
     }
 }

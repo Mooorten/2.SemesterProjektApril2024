@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Cats</title>
+</head>
+<body>
+<h2>Edit Cats</h2>
+
+<!-- Form to edit cats -->
+<form action="#" th:action="@{/cat/save}" th:object="${cat}" method="post">
+    <label for="cat1_name">Name:</label><br>
+    <input type="text" id="cat1_name" name="cat1_name" value="" required><br><br>
+
+    <label for="cat1_weight">Weight:</label><br>
+    <input type="number" id="cat1_weight" name="cat1_weight" value="" step="0.01" required><br><br>
+
+    <label for="cat1_breed">Breed:</label><br>
+    <input type="text" id="cat1_breed" name="cat1_breed" value="" required><br><br>
+
+    <label for="cat1_gender">Gender:</label><br>
+    <select id="cat1_gender" name="cat1_gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select><br><br>
+
+    <!-- Submit button to update cat information -->
+    <input type="submit" value="Update Cats">
+    <a href="/profile">Back</a>
+</form>
+</body>
+</html>

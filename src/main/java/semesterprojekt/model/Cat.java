@@ -9,14 +9,25 @@ public class Cat {
 
     private String breed;
 
+    private String gender;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public Cat() {
     }
 
-    public Cat(int catid, String name, double weight, String breed) {
+    public Cat(int catid, String name, double weight, String breed, String gender) {
         this.catid = catid;
         this.name = name;
         this.weight = weight;
         this.breed = breed;
+        this.gender = gender;
     }
 
     public int getCatid() {
@@ -54,10 +65,11 @@ public class Cat {
     @Override
     public String toString() {
         return "Cat{" +
-                "catID=" + catid +
+                "catid=" + catid +
                 ", name='" + name + '\'' +
                 ", weight=" + weight +
                 ", breed='" + breed + '\'' +
+                ", gender='" + gender + '\'' +
                 '}';
     }
 }

@@ -10,13 +10,12 @@ import java.util.Scanner;
 public class DbSql {
     public static Connection connection;
     private Statement stmt;
-    private Statement stmt1;
 
     public DbSql() {
         connection = null;
         stmt = null;
         try {
-            String url = "jdbc:mysql://mysql35.unoeuro.com:3306/krudtraeven_dk_db_KatteKlubben";
+            String url = "jdbc:mysql://mysql35.unoeuro.com:3306/krudtraeven_dk_db_KatteKlubben?serverTimezone=Europe/Copenhagen";
             String user = "krudtraeven_dk";
             String password = "w5F4be2mGrpnxk3BytDH";
             connection = DriverManager.getConnection(url, user, password);
@@ -40,13 +39,14 @@ public class DbSql {
         }
     }
 
-    public void createCat(int catid, String name, double weight, String breed) {
-        String insertCatQuery = "INSERT INTO cat (catid, name, weight, breed) VALUES (?, ?, ?, ?)";
+    public void createCat(int catid, String name, double weight, String breed, String gender) {
+        String insertCatQuery = "INSERT INTO cat (catid, name, weight, breed, gender) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement createcat = connection.prepareStatement(insertCatQuery)) {
             createcat.setInt(1, catid);
             createcat.setString(2, name);
             createcat.setDouble(3, weight);
             createcat.setString(4, breed);
+            createcat.setString(5,gender);
             createcat.executeUpdate();
         } catch (SQLException ex) {
             throw new RuntimeException(ex);
@@ -113,7 +113,7 @@ public class DbSql {
             Scanner scan = new Scanner(System.in);
             catID = scan.nextInt();
 
-            System.out.println("Do you want to change 'name', 'weight' or 'breed'?");
+            System.out.println("Do you want to change 'name', 'weight' 'breed', or 'gender'?");
             String choice = scan.next().toLowerCase();
 
             if (choice.equals("name")) {
@@ -137,8 +137,15 @@ public class DbSql {
                 Statement stmt = connection.createStatement();
                 stmt.execute(sql);
                 System.out.println("Breed has been updated");
+            } else if (choice.equals("gender")) {
+                System.out.println("Enter the new gender: ");
+                String newGender = scan.next();
+                String sql = "UPDATE cat SET gender = '" + newGender + "' WHERE gender ='" + String.valueOf(newGender);
+                Statement stmt = connection.createStatement();
+                stmt.execute(sql);
+                System.out.println("Gender has been updated");
             } else {
-                System.out.println("Invalid choice. Please select either 'name' , 'weight', or 'breed'.");
+                System.out.println("Invalid choice. Please select either 'name', 'weight','breed' or 'gender'.");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -204,6 +211,7 @@ public class DbSql {
                 c.setName(rs.getString("name"));
                 c.setWeight(rs.getDouble("weight"));
                 c.setBreed(rs.getString("breed"));
+                c.setGender(rs.getString("gender"));
                 catList.add(c);
             }
             stmt.close();

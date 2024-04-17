@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Cat</title>
+</head>
+<body>
+<h2>Create a Cat</h2>
+<form action="/process_create_cat" method="POST" enctype="multipart/form-data">
+    
+    <!--<Bruger angiver kattens navn>-->
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <!--<Brugeren angiver vægt for kat>-->
+    <label for="weight">Weight:</label><br>
+    <input type="number" id="weight" name="weight" step="0.01" required><br><br>
+
+    <!--<Brugeren angiver race for kat>-->
+    <label for="breed">Breed:</label><br>
+    <input type="text" id="breed" name="breed" required><br><br>
+
+    <!--<Bruger kan vælge mellem male og female cat  i en dropdown menu>-->
+    <label for="gender">Gender:</label><br>
+    <select id="gender" name="gender" required>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select><br><br>
+
+    <!--<Upload billede af kat>-->
+    <label for="image">Upload Cat Image (JPG only):</label><br>
+    <input type="file" id="image" name="image" accept="image/jpeg" required><br><br>
+
+    <!--<Opretter katten som object og sender til databasen>-->
+    <input type="submit" value="Create Cat">
+</form>
+</body>
+</html>

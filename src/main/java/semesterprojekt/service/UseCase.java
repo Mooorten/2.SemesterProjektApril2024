@@ -11,9 +11,9 @@ public class UseCase{
         DbSql db = new DbSql();
         db.createMember(memberID, name, surname, phone, email, password);
     }
-    public void createCat(int catid, String name, double weight, String breed){
+    public void createCat(int catid, String name, double weight, String breed, String gender){
         DbSql db = new DbSql();
-        db.createCat(catid, name, weight, breed);
+        db.createCat(catid, name, weight, breed, gender);
     }
 
     public void editMember(){

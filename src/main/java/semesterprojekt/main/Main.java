@@ -33,7 +33,7 @@ public class Main {
                     System.out.println("Member has been created!");
                     break;
                 case 2:
-                    u.createCat(1, "Seline", 10,"Breed");
+                    u.createCat(1, "Seline", 10,"Breed","M");
                     System.out.println("Cat has been created");
                     break;
                 case 3:

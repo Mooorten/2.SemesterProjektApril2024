@@ -21,6 +21,9 @@ public class AppController {
 	@Autowired
 	private UserRepository userRepo;
 
+	@Autowired
+	private CatService catService;
+
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
@@ -38,7 +41,7 @@ public class AppController {
 		return "loggedin";
 	}
 
-	@PostMapping("/welcome")
+	@PostMapping("/process_register")
 	public String processRegister(User User) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(User.getPassword());
@@ -46,10 +49,10 @@ public class AppController {
 
 		userRepo.save(User);
 
-		return "loggedin";
+		return "register_success";
 	}
 
-	/*@PostMapping("/loggedin")
+	@PostMapping("/loggedin")
 	public String processLogin(User User) {
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String encodedPassword = passwordEncoder.encode(User.getPassword());
@@ -57,7 +60,7 @@ public class AppController {
 
 
 		return "loggedin";
-	}*/
+	}
 	@GetMapping ("/loggedin")
 	public String frontPage() {
 		return "loggedin";
@@ -69,6 +72,14 @@ public class AppController {
 		model.addAttribute("listUsers", listUsers);
 		return "users";
 	}
+
+	@GetMapping("/cats")
+	public String listCats(Model model) {
+		List<Cat> listcats = catService.getAllCats();
+		model.addAttribute("cats", listcats);
+		return "cats";
+	}
+
 
 		@GetMapping("/profile")
 		public String showProfilePage() {
@@ -86,19 +97,26 @@ public class AppController {
 				public String aboutUs(){
 		return "about";
 		}
-	@GetMapping ("/cats")
+	/*@GetMapping ("/cats")
 	public String catInventory(){
 		return "cats";
-	}
+	}*/
+
 	@GetMapping ("/createCat")
 	public String createNewCat(){
 		return "createCat";
 	}
 	@GetMapping ("/memberList")
-	public String showMemberList	(){
+	public String showMemberList(){
 
 		return "memberList";
 	}
+
+	/*@GetMapping ("/catList")
+	public String showCatList(){
+
+		return "cats";
+	}*/
 
 	DbSql dbSql = new DbSql();
 	@PostMapping("/update_profile")

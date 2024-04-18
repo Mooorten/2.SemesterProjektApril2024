@@ -14,7 +14,6 @@ public class DbSql {
     private Statement stmt;
     private final JdbcTemplate jdbcTemplate;
 
-
     public DbSql() {
         this.jdbcTemplate = new JdbcTemplate();
 
